@@ -25,7 +25,7 @@ class Student:
         self.passport=student["Photo"]
         self.data={
             "Name":self.name,
-            "Registration Number":self.number,
+            "Number":self.number,
             "Gender":self.gender,
             "Course":self.course
         }
@@ -96,7 +96,7 @@ class Generate_card:
         margin_x=80
         margin_y=height - 75
         c.drawString(margin_x, margin_y, f"Name: {self.data['Name']}")
-        c.drawString(margin_x, margin_y - 10, f"Reg No: {self.data['Registration Number']}")
+        c.drawString(margin_x, margin_y - 10, f"Reg No: {self.data['Number']}")
         c.drawString(margin_x, margin_y - 20, f"Gender: {self.data['Gender']}")
         c.drawString(margin_x, margin_y - 30, f"Course: {self.data['Course']}")
         c.setFont("Helvetica", 6)
@@ -113,6 +113,7 @@ class Generate_card:
             "Card No # 19361"
         )
         c.save()
+        Database().add(self.data)
 
 
 
