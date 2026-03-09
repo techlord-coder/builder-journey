@@ -1,0 +1,419 @@
+:root{
+    --warm-beige:#CDB8A6;
+    --deep-brown:#3A1F15;
+    --gold:#D39B2C;
+    --soft-sage:#DCE5E3;
+    --light-gray:#F5F5F5;
+    --success:#2ECC71;
+    --error:#E74C3C;
+}
+*{
+    box-sizing: border-box;
+}
+body{
+    background-color: #CDB8A6;
+    font-family: Arial, sans-serif;
+    margin:0px;
+    padding: 0px;
+    width: 100%;
+}
+header{
+    width:100%;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    background-color: #DCE5E3;
+    margin: 0 auto;    
+}
+header img{
+    width: 150px;
+    height: 50px;
+}
+nav ul{
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+nav ul li a{
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+nav ul li a:hover{
+    color: #007BFF;
+}
+.hero-section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 50px 20px;
+    }
+.divider{
+    width: 40%;
+    height: 1px;
+    background-color: #D39B2C;
+    margin: 20px auto;
+}
+.service-section{
+    display:grid;
+    grid-template-columns: minmax(0, 1fr) 350px;
+    gap:40px;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding:0 20px;
+}
+.services-explorer{
+/* We don't need much here yet, just layout */
+min-width: 0;
+}
+.scrollable-viewport{
+    max-height: 500px;
+    overflow-y: auto;
+}
+#services-grid{
+    display:grid;
+    width:100%;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap:20px;
+    padding:20px;
+}
+.booking-sidebar{
+position:sticky;/*First principle: Stay in view while scrolling */
+top:20px; /*Second principle: Don't stick to the very top of the viewport */
+background-color:#F5F5F5;
+border-radius:16px;
+padding:24px;
+box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+height:fit-content; /*Third principle: Only take up as much vertical space as needed */
+}
+.total-cost{
+    display:flex;
+    justify-content: space-between;
+    font-size: 1,2rem;
+    margin:20px 0;
+    padding-top: 15px;
+    border-top: 1px solid #D39B2C;
+}
+.booking-sidebar button{
+    width:100%;
+    padding:12px;
+    background-color:#D39B2C;
+    color:white;
+    border:none;
+    border-radius:8px;
+    font-size:1.1rem;
+    cursor:pointer;
+}
+.category-pills{
+    display:flex;
+    flex-direction: row;
+    gap:10px;
+    margin-bottom:20px;
+    justify-content: center;
+}
+.category-pill{
+    display:flex;
+    flex-direction: row;
+    gap:10px;
+    margin-bottom:20px;
+    border-radius: 5px;
+    padding: 5px 10px;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.05);
+    border: 0.5px solid #D39B2C;
+}
+.category-pill:hover{
+    background-color: #D39B2C;
+    color:white;
+    border: 0.5px solid transparent;
+}
+.search-bar{
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 20px;
+    position:relative;
+}
+.search-wrapper{
+    position: relative;
+    width:70%;
+}
+#service-search{
+    width: 100%;
+    padding: 10px 10px 10px 40px;
+    border: 1px solid #D39B2C;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+.fa-solid{
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color:grey;
+}
+.service-card{
+
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    padding: 10px;
+    text-align: center;
+    transform: translateY(0px);
+    
+    transition: transform 0.3s ease;
+}
+.service-card:hover{
+    transform: translateY(-10px);
+    box-shadow:0px 15px 35px rgba(0,0,0,0.15);
+
+}
+.service-card img{
+    width:100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px 8px 0 0;
+}
+.service-card button{
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color: #D39B2C;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.footer-section{
+    background-color: #000000;
+    color: #F5F5F5;
+    text-align: center;
+    padding: 60px 20px;
+    margin-top: 40px;
+    position: relative;
+    z-index: 1000;
+    margin-bottom:0px;
+    width:100%;
+}
+.footer-section p{
+    opacity:0.7;
+    font-size:0.85rem;
+    margin:0;
+}
+.modal-overlay{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background: rgba(0,0,0,0.4);
+    /* 1. For Safari and iOS (The Prefix) */
+    -webkit-backdrop-filter: blur(5px);
+    /*For Chrome, edge, and firefox(The standard)*/ 
+    backdrop-filter: blur(5px);
+    display:none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index:2000;
+}
+.modal-content{
+    position:relative;
+    background:var(--light-gray);
+    padding:40px;
+    border-radius:20px;
+    width:fit-content;
+    max-width:300px;
+    transform:translateY(20px);
+    transition:transform 0.3s ease;
+}
+.close-modal{
+background:none;
+position:absolute;
+right:5px;
+top:0px;
+border:none;
+font-size:1.8rem;
+}
+
+.close-modal:hover{
+    cursor: pointer;
+    transform: translateY(1.5px);
+    background-color: rgba(255, 0, 0, 0.792);
+    border-radius:8px;
+    color:white;
+}
+#service-date{
+    font-size: 1.2rem;
+    width:200px;
+    margin-bottom:5px;
+}
+.time-grid{
+    display:grid;
+    grid-template-columns: repeat(3,1fr);
+    gap:10px;
+    margin-top: 10px;
+}
+.time-pill{
+padding:10px;
+border:1px solid var(--light-gray);
+border-radius: 8px;
+background: white;
+cursor:pointer;
+text-align:center;
+transition:0.2s;
+font-size:0.9rem;
+}
+.time-pill:hover{
+    border-color: var(--soft-sage);
+    background:#f0f4f1;
+}
+.time-pill.selected{
+    background:var(--soft-sage);
+    color:white;
+    border-color:var(--warm-beige);
+    box-shadow:0 4px 10px rgba(135,163,141,0.3);
+}
+.hint{
+    position:absolute;
+}
+#final-btn{
+    margin-top: 10px;
+    display:none;
+    width:100%;
+    padding:12px;
+    background-color:#D39B2C;
+    color:white;
+    border:none;
+    border-radius:8px;
+    font-size:1.1rem;
+    cursor:pointer;
+}
+@keyframes fadeInUp{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.fade-in-up{
+    animation: fadeInUp 2.5s ease forwards;
+}
+.pay-btn{
+        margin-top: 10px;
+    display:flex;
+    width:100%;
+    padding:5px;
+    background-color:#D39B2C;
+    color:white;
+    border:none;
+    border-radius:4px;
+    font-size:1.0rem;
+    cursor:pointer;
+}
+#client-name{
+    margin-top:5px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    padding:5px;
+}
+#client-phone{
+    margin-top:5px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    padding:5px;
+}
+.cart-item{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0 ;
+        
+    }
+.remove-btn{
+    background:#FFEDed;
+    color:#ff4d4d;
+    border:none;
+    border-radius:50%;
+    max-width:25px;
+    height:25px;
+    cursor:pointer;
+    font-weight: bold;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    transition:0.2s;
+}    
+.remove-btn:hover{
+background:#ff4d4d;
+color:white
+}
+/* 8. Mobile Responsiveness */
+@media (max-width: 900px) {
+    /* 1. Stack the main layout */
+    .service-section { 
+        grid-template-columns: 1fr; 
+        margin-bottom: 120px; /* Buffer so footer doesn't cover content */
+    }
+
+    /* 2. Transform Sidebar into Sticky Bottom Bar */
+    .booking-summary {
+        display:none;
+        position: fixed; 
+        bottom: 0; 
+        left: 0;
+        width: 100%; 
+        border-radius: 20px 20px 0 0;
+        z-index: 1000; /* Highest priority */
+        padding: 15px 25px;
+        box-shadow: 0 -5px 25px rgba(0,0,0,0.1); /* Shadow pointing UP */
+        border-top: 1px solid #eee;
+    }
+
+    /* 3. Hide non-essential details on mobile */
+    .booking-summary h2, 
+    #selected-services {
+        display: none; 
+    }
+
+    /* 4. Align Total and Button side-by-side */
+    .checkout-part {
+        display:grid;
+        grid-template-columns: repeat(minmax(0,100));
+    }
+
+
+
+    .total-cost span {
+        font-size: 0.8rem;
+        color: #888;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .total-cost strong {
+        font-size: 1.4rem;
+        color: var(--gold);
+    }
+
+    .pay-btn {
+        width: auto; /* Don't stretch */
+        padding: 12px 30px;
+        border-radius: 50px; /* Pill shape for mobile */
+        font-size: 1rem;
+        box-shadow: 0 4px 15px rgba(211, 155, 44, 0.4);
+    }
+    
+}
+@media (max-width: 768px){
+    header{
+        padding: 15px 16px;
+    }
+}

@@ -12,10 +12,14 @@ if (err) {
     return console.error("Error creating transactions table:", err);
   }
 });
-
-// Load environment variables
+db.run(`CREATE TABLE IF NOT EXISTS services (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, category TEXT, description TEXT, price REAL)`, (err) => {
+if(err){
+    return console.error("Error creating services table:", err);
+}
+});
+  // Load environment variables
 dotenv.config();
-
+app.use(express.static('public'));
 app.use(express.json());
 
 // Works whether cPanel forwards "/" or "/booking-app"
@@ -130,8 +134,26 @@ app.post("/booking-app/m-pesa-callback/", async (req, res) => {
   });
   res.status(200).json({ message: "Callback received successfully" });
 });
+app.get("/api/services",(req,res)=>{
+  const sql = "SELECT * FROM services";
+  db.all(sql, [], (err, rows) => {
+    if (err) {
+      console.error("Error fetching services:", err);
+      return res.status(500).json({ error: "Failed to fetch services" });
+    }
+    res.json(rows);
+  });
+})
 
-
+app.get("/booking-app/status/:id", (req,res)=>{
+  db.get(`SELECT status FROM transactions WHERE checkoutRequestID=?`,[req.params.id],(err,row)=>{
+    if(err)return res.status(500).json({error:"Database error"});
+    if(!row) return res.status(404).json({error:"Booking not found"});
+    res.json({
+      status:row.status
+    });
+  });
+});
 module.exports=app;
 // Optional: if you ever run locally (not needed for Passenger)
 // if (require.main === module) {

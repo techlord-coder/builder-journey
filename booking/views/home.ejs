@@ -1,21 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
+<link rel="stylesheet" href="/css/style.css">   
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Spa Booking App</title>
 </head>
 <body>
-    <div class="header-section">
-        <h1>Welcome to the Home Page</h1>
+    <header>
+        <div class="logo">
+            <img src="/images/logo.png" alt="Logo" width="50" height="50">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="https://spa.armstongwebs.co.ke/">Home</a></li>
+                <li><a href="https://spa.armstongwebs.co.ke/about/">About</a></li>
+                <li><a href="https://spa.armstongwebs.co.ke/contact/">Contact</a></li>
+                <li><a href="https://spa.armstongwebs.co.ke/booking-app/">Booking</a></li>
+            </ul>
+        </div>
+    </header>
+    <div class="hero-section">
+<h1>Reserve your spa Experience</h1>
+<p>Indulge in tranquility.Your moment begins here.</p>
+<div class="divider"></div>
     </div>
-    <div class="booking-section">
-        /* Here is where one books a spa service by choosing date, time and service they want and forwarding personal details for the booking to be done  */
-    </div>
-    <div class="pay-section">
-        /* Here is where one pays for the service they have booked by using m-pesa stk method and then submits where then the series of actions to happen in the backend begin */
-    <button>Book Service</button>
-    </div>
-</body>
+    
+    <section class="service-section">
 
+<main class="services-explorer">
+<div class="explorer-header">
+    <!--Here  we will place the categories pills for filtering and search functionality -->
+<div class="category-pills">
+    <button onclick="filterCategory('all')" class="category-pill" class="active"  data-category="all">All</button>
+    <button onclick="filterCategory('massage')"  class="category-pill" data-category="massage">Massage</button>
+    <button onclick="filterCategory('facial')" class="category-pill" data-category="facial">Facial</button>
+    <button onclick="filterCategory('body-treatment')" class="category-pill" data-category="body-treatment">Body Treatment</button>
+    <button onclick="filterCategory('nail-care')" class="category-pill" data-category="nail-care">Nail Care</button>
+    <button onclick="filterCategory('packages')" class="category-pill" data-category="packages">Packages (Bundles)</button>
+</div>
+<div class="search-bar">
+    <div class="search-wrapper">
+    <input type="text" id="service-search" placeholder="Search for services..." onchange="renderServices()">
+    <i class="fa-solid fa-magnifying-glass" c ></i>
+    </div>
+</div>
+<div id="services-grid" class="scrollable-viewport">
+    <!-- Services will be dynamically loaded here using JavaScript -->
+<div class="service-card" data-id="1">
+        <img src="/images/Deep%20Tissue%20Massage.png" alt="Massage Service">
+        <h3>Deep Tissue Massage</h3>
+        <p>Timeless massage experience from one<br> of our skilled therapists.</p>
+        <p>Price: KES 5000</p>
+        <button class="book-btn" onclick="exampleActivateModal(1)">Book Now</button>
+    </div>
+<div class="service-card" data-id="2">
+        <img src="/images/Sweedish%20massage.png" alt="Massage Service">
+        <h3>Swedish Massage</h3>
+        <p>Relaxing and rejuvenating massage experience.<br>Perfect for stress relief.</p>
+        <p>Price: KES 4500</p>
+        <button class="book-btn" onclick="exampleActivateModal(2)">Book Now</button>
+    </div>
+</div>
+</main>
+
+<aside class="booking-sidebar">
+<div class="booking-summary">
+    <h2>Booking Summary</h2>
+    <p id="selected-services">No services selected yet.</p>
+</div>
+<div class="checkout-part">
+    <div class="total-cost">
+<span>Total:</span>
+<strong id="total-cost">KES 0</strong>
+    </div>
+    <button id="pay-btn" onclick="openPaymentModal()">Pay via M-pesa </button>
+</div>
+
+</aside>
+    </section>
+    
+    <div class="footer-section">
+        <p>&copy; 2026 Cleanco Spa. All rights reserved.</p>
+        </div>
+<div id="booking-modal" class="modal-overlay" >
+
+<div class="modal-content" id="modal-card">
+<button class="close-modal" onclick="closeModal()">&times;</button>
+<h2 id="modal-service-name">Service Name</h2>
+<p id="modal-service-price">KES 0</p>
+<div class="selection-container">
+    <div class="input-group">
+        <label for="service-date">Select Date:</label>
+        <input type="date" id="service-date" onchange="generateTimeSlots()">
+</div>
+<div class="input-group">
+    <label for="service-time">Available Times</label>
+    <div id="time-slots-container" class="time-grid">
+        <p class="hint">Please select a date first.....</p>
+
+    </div>
+</div>
+</div>
+<button id="final-btn"onclick="exampleConfirmBooking()">Confirm Booking</button>
+</div>
+</div> 
+
+<div id="payment-modal" class="modal-overlay">
+    <div class="modal-content">
+<button class="close-modal" onclick="closePaymentModal()">&times;</button>     
+<h2>Secure Checkout</h2>
+<p>Confirm your details to receive m-pesa stk push</p>
+<div class="checkout-summary">
+    <p><strong>Amount to pay:</strong><span id="checkout-total">KES 0</span></p>
+</div>
+<div class="input-group">
+    <label for="client-name">Full Name</label>
+    <input type="text" id="client-name" placeholder="Your-name">
+</div> 
+<div class="input-group">
+    <label for="client-phone">M-pesa Number</label>
+    <input type="text" id="client-phone" placeholder="2547XXXXXXXX">
+    <small>Format:254 followed by your number</small>
+</div>
+<button id="stk-btn" class="pay-btn" onclick="startMpesaPayment()">Confirm and pay via M-pesa</button>
+<div id="payment-loading" style="display: none;">
+    <p>Processing... Please check your phone.</p>
+</div>    
+</div>
+</div>
+
+</body>
+<script src="/js/main.js"></script>
 </html>
